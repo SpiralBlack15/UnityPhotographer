@@ -49,8 +49,19 @@ namespace Spiral.EditorToolkit
 
             if (string.IsNullOrWhiteSpace(path)) path = SpiralEditorTools.GetDirectory(path);
 
-            SetGUIEnabled(false);
             EditorGUILayout.TextField(GetLabel(panelName, "Path to save screenshots"), path);
+
+            bool pathExists = Directory.Exists(path);
+            SetGUIEnabled(pathExists);
+            bool open = MiniButton("Open");
+            if (open)
+            {
+                try
+                {
+                    EditorUtility.RevealInFinder(path);
+                }
+                catch { }
+            }
             RestoreGUIEnabled();
 
             bool browse = MiniButton("...");
@@ -59,8 +70,8 @@ namespace Spiral.EditorToolkit
             {
                 string dir = SpiralEditorTools.GetDirectory(path);
                 bool folder = string.IsNullOrEmpty(ext);
-                ans = folder ? 
-                      EditorUtility.OpenFolderPanel(panelName, dir, "") : 
+                ans = folder ?
+                      EditorUtility.OpenFolderPanel(panelName, dir, "") :
                       EditorUtility.OpenFilePanel(panelName, dir, ext);
                 if (ans == "") ans = path;
             }

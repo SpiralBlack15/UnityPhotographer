@@ -116,16 +116,18 @@ namespace Spiral.EditorToolkit
             EditorWindow editorWindow = null;
             try
             {
-                editorWindow = EditorWindow.GetWindow<EditorWindow>("Game");
+                //editorWindow = EditorWindow.GetWindow<EditorWindow>("Game"); // use this variant if you don't want GameView to be always open
+                var assembly = typeof(EditorWindow).Assembly;
+                Type t = assembly.GetType("UnityEditor.GameView");
+                editorWindow = EditorWindow.GetWindow(t);
             }
             catch { } // welcome to silent null
 
             if (editorWindow == null) return null;
-            
-            if (editorWindow.GetType().Name != "GameView") return null;
+            //if (editorWindow.GetType().Name != "GameView") return null; // use this variant if you don't want GameView to be always open
 
             m_gameView = editorWindow;
-            
+
             if (!cashed)
             {
                 cashed = true;
