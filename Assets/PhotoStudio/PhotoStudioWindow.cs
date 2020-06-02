@@ -14,11 +14,11 @@
 using UnityEngine;
 using Spiral.Core;
 using System;
-using Unity.EditorCoroutines.Editor;
 using System.Collections;
 
 #if UNITY_EDITOR
 using UnityEditor;
+using Unity.EditorCoroutines.Editor;
 namespace Spiral.EditorToolkit.PhotoStudio
 {
     public class PhotoStudioWindow : SpiralCustomEditorWindow
